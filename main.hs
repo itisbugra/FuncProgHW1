@@ -18,8 +18,9 @@ module ZellerImplementation where
   centurySize :: Integer
   centurySize = 100
 
-  dayOfWeek :: Integer -> Integer -> Integer -> Integer
-  dayOfWeek day month year = round(calculatedDay) `mod` 7 where
+  data DayOfWeek = 
+    Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday  deriving (Enum)
+
   -- | Calculates day of a week on a Gregorian calendar by using *Zeller's congruence* method.
   dayOfWeek :: Integer -- ^ Day of the month, e.g. 21.
             -> Integer -- ^ Month of the year.

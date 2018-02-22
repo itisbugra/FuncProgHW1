@@ -1,5 +1,5 @@
 {- |
-Module      :  main.hs
+Module      :  Main
 Description :  Application start point.
 Copyright   :  (c) 2018 Buğra Ekuklu (chatatata)
 License     :  See LICENSE.md
@@ -11,12 +11,13 @@ Portability :  portable
 Implements *Zeller's congruence* in order to calculated the day of the week on given day, month
 and year in Gregorian calendar.
 -}
-module ZellerImplementation where
+module Main where
   import Prelude
 
   -- | Size of a century.
   centurySize :: Integer
   centurySize = 100
+
 
   data DayOfWeek = 
     Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday  deriving (Enum)

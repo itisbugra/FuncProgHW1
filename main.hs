@@ -1,11 +1,32 @@
+{- |
+Module      :  main.hs
+Description :  Application start point.
+Copyright   :  (c) 2018 Buğra Ekuklu (chatatata)
+License     :  See LICENSE.md
+
+Maintainer  :  ekuklu[at]icloud.com
+Stability   :  experimental
+Portability :  portable
+
+Implements *Zeller's congruence* in order to calculated the day of the week on given day, month
+and year in Gregorian calendar.
+-}
 module ZellerImplementation where
   import Prelude
 
+  -- | Size of a century.
   centurySize :: Integer
   centurySize = 100
 
   dayOfWeek :: Integer -> Integer -> Integer -> Integer
   dayOfWeek day month year = round(calculatedDay) `mod` 7 where
+  -- | Calculates day of a week on a Gregorian calendar by using *Zeller's congruence* method.
+  dayOfWeek :: Integer -- ^ Day of the month, e.g. 21.
+            -> Integer -- ^ Month of the year.
+            -> Integer -- ^ Year.
+            -> Integer -- ^ Calculated day of the week.
+  dayOfWeek day month year = 
+      round(calculatedDay) `mod` 7 where
     yearOfCentury :: Fractional a => a
     yearOfCentury = realToFrac(fromInteger(year `mod` centurySize))
 

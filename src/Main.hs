@@ -83,8 +83,8 @@ sundays1tr start end = sundays' start 1 0
       | y > end   = acc
       | otherwise = if dayOfWeek y m 1 == 1 then inc else pass
       where
-      nextY yacc = sundays' (y + 1) 1 yacc
-      nextM yacc = sundays' y (m + 1) yacc
+      nextY = sundays' (y + 1) 1
+      nextM = sundays' y (m + 1)
       inc = if m < 12 then nextM (acc + 1) else nextY (acc + 1)
       pass = if m < 12 then nextM acc else nextY acc
 

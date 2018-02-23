@@ -1,5 +1,5 @@
 {- |
-Module      :  Main
+Module      :  ZellersCongruence
 Description :  Application start point.
 Copyright   :  (c) 2018 Buğra Ekuklu (chatatata)
 License     :  See LICENSE.md
@@ -11,14 +11,14 @@ Portability :  portable
 Implements *Zeller's congruence* in order to calculated the day of the week on given day, month
 and year in Gregorian calendar.
 -}
-module Main where
+module ZellersCongruence where
   import Prelude
 
   -- | Size of a century.
   centurySize :: Integer
   centurySize = 100
 
-
+  -- | Data type representing day of a week.
   data DayOfWeek = 
     Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday  deriving (Enum)
 
@@ -28,21 +28,12 @@ module Main where
             -> Integer -- ^ Year.
             -> Integer -- ^ Calculated day of the week.
   dayOfWeek day month year = 
-      round(calculatedDay) `mod` 7 where
-    yearOfCentury :: Fractional a => a
-    yearOfCentury = realToFrac(fromInteger(year `mod` centurySize))
+      calculatedDay `mod` 7 where
+    yearOfCentury :: Integer
+    yearOfCentury = year `mod` centurySize
 
-    flooredQuarterOfYearOfCentury :: Fractional a => a
-    flooredQuarterOfYearOfCentury = floor(yearOfCentury / 4.00)
+    zeroBasedCentury :: Integer
+    zeroBasedCentury = floor(fromInteger(year) / fromInteger(centurySize))
 
-    zeroBasedCentury :: Fractional a => a
-    zeroBasedCentury = realToFrac(fromInteger(year) / 100.00)
-
-    flooredQuarterOfZeroBasedCentury :: Fractional a => a
-    flooredQuarterOfZeroBasedCentury = floor(zeroBasedCentury / 4.00)
-
-    flooredZeroBasedCentury :: Fractional a => a
-    flooredZeroBasedCentury = floor(zeroBasedCentury)
-
-    calculatedDay :: Fractional a => a
-    calculatedDay = fromInteger(day) + (13.00 * (fromInteger(month) + 1.00)) / 5.00 + yearOfCentury + flooredQuarterOfYearOfCentury + flooredQuarterOfZeroBasedCentury - 2.00 * flooredZeroBasedCentury
+    calculatedDay :: Integer
+    calculatedDay = month + yearOfCentury + (realToFrac(zeroBasedCentury) / realToFrac(4.00))

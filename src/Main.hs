@@ -107,3 +107,23 @@ daysInMonth month year
     month == 9 || 
     month == 11 = 30
   | otherwise   = 31
+
+sundays2 :: Integer
+         -> Integer
+         -> Integer
+sundays2 start end = sundays' start 1 2
+  where
+    sundays' :: Integer -> Integer -> Integer -> Integer
+    sundays' year month weekDay
+      | year > end   = 0
+      | otherwise = if nextWeekday `mod` 7 == 0 then rest + 1 else rest
+      where
+        nextY :: Integer
+        nextY = sundays' (year + 1) 1 nextWeekday
+        nextM :: Integer
+        nextM = sundays' year (month + 1) nextWeekday
+        nextWeekday :: Integer
+        nextWeekday = weekDay + ((daysInMonth month year) `mod` weekSize)
+        rest :: Integer
+        rest  = if month < 12 then nextM else nextY
+

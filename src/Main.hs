@@ -54,8 +54,36 @@ dayOfWeek year realMonth day = calculatedDay `mod` weekSize
       floor(fromIntegral(zeroBasedCentury) / 4.00) +
       (5 * zeroBasedCentury)
 
-  zeroBasedCentury :: Integer
-  zeroBasedCentury = floor(fromInteger(year) / fromInteger(centurySize))
+-- | Calculates the number of months starting with sundays in given time interval of years.
+sundays1 :: Integer -- ^ Starting year of the interval.
+         -> Integer -- ^ Ending year of the interval.
+         -> Integer -- ^ Number of sundays between given years.
+sundays1 start end = sundays' start 1
+  where
+    sundays' :: Integer -> Integer -> Integer
+    sundays' y m
+      | y > end   = 0
+      | otherwise = if dayOfWeek y m 1 == 1 then rest + 1 else rest
+      where
+        nextY = sundays' (y + 1) 1
+        nextM = sundays' y (m + 1)
+        rest  = if m < 12 then nextM else nextY
+
+-- | Tail recursive variant of `sundays1 (Integer, Integer) -> Integer`.
+sundays1tr :: Integer -- ^ Starting year of the interval.
+           -> Integer -- ^ Ending year of the interval.
+           -> Integer -- ^ Number of sundays between given years.
+sundays1tr start end = sundays' start 1 0
+  where
+    sundays' :: Integer -> Integer -> Integer -> Integer
+    sundays' y m acc
+      | y > end   = acc
+      | otherwise = if dayOfWeek y m 1 == 1 then inc else pass
+      where
+      nextY acc = sundays' (y + 1) 1 acc
+      nextM acc = sundays' y (m + 1) acc
+      ftor newAcc = if m < 12 then nextM newAcc else nextY newAcc
+      inc = ftor (acc + 1); pass = ftor acc
 
   calculatedDay :: Integer
   calculatedDay = month + yearOfCentury + (realToFrac(zeroBasedCentury) / realToFrac(4.00))

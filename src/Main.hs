@@ -15,8 +15,10 @@ module Main where
 
 import Prelude
 
+-- | Application start point.
 main :: IO ()
-main = putStrLn "Hello, Haskell!"
+main = do putStrLn (show (sundays1 1901 2000))
+          putStrLn (show (sundays2 1901 2000))
 
 -- | Size of a century.
 centurySize :: Integer
@@ -86,8 +88,8 @@ sundays1tr start end = sundays' start 1 0
       inc = ftor (acc + 1); pass = ftor acc
 
 -- | Finds out if the given year has a leap day.
-leap :: Integer
-     -> Bool
+leap :: Integer -- ^ Year.
+     -> Bool -- ^ Truthy value if year has a leap day, otherwise false.
 leap year = isForth && not(isCenturyStart) || isForthCenturyStart
   where
     isForth :: Bool
@@ -97,9 +99,10 @@ leap year = isForth && not(isCenturyStart) || isForthCenturyStart
     isForthCenturyStart :: Bool
     isForthCenturyStart = (year `mod` (centurySize * leapWidth)) == 0
 
-daysInMonth :: Integer
-            -> Integer
-            -> Integer
+-- | Calculates days in given month-year pair.
+daysInMonth :: Integer -- ^ Month of the year.
+            -> Integer -- ^ Year.
+            -> Integer -- ^ Number of days.
 daysInMonth month year
   | month == 2  = if leap(year) then 29 else 28
   | month == 4 || 
@@ -108,9 +111,11 @@ daysInMonth month year
     month == 11 = 30
   | otherwise   = 31
 
-sundays2 :: Integer
-         -> Integer
-         -> Integer
+-- | Second variant of function `sundays1 (Integer, Integer) -> Integer`, using week days in order
+-- calculate number of sundays between given years.
+sundays2 :: Integer -- ^ Starting year of the interval.
+         -> Integer -- ^ Ending year of the interval.
+         -> Integer -- ^ Number of sundays between given years.
 sundays2 start end = sundays' start 1 2
   where
     sundays' :: Integer -> Integer -> Integer -> Integer
@@ -126,4 +131,3 @@ sundays2 start end = sundays' start 1 2
         nextWeekday = weekDay + ((daysInMonth month year) `mod` weekSize)
         rest :: Integer
         rest  = if month < 12 then nextM else nextY
-

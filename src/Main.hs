@@ -22,9 +22,6 @@ main = putStrLn "Hello, Haskell!"
 centurySize :: Integer
 centurySize = 100
 
--- | Data type representing day of a week.
-data DayOfWeek = 
-  Saturday | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday  deriving (Enum)
 
 -- | Calculates day of a week on a Gregorian calendar by using *Zeller's congruence* method.
 dayOfWeek :: Integer -- ^ Day of the month, e.g. 21.

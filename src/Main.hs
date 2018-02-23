@@ -19,6 +19,7 @@ import Prelude
 main :: IO ()
 main = do putStrLn (show (sundays1 1901 2000))
           putStrLn (show (sundays2 1901 2000))
+          putStrLn (show (sundays1tr 1901 2000))
 
 -- | Size of a century.
 centurySize :: Integer

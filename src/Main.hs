@@ -17,9 +17,9 @@ import Prelude
 
 -- | Application start point.
 main :: IO ()
-main = do putStrLn (show (sundays1 1901 2000))
-          putStrLn (show (sundays2 1901 2000))
-          putStrLn (show (sundays1tr 1901 2000))
+main = do print (sundays1 1901 2000)
+          print (sundays2 1901 2000)
+          print (sundays1tr 1901 2000)
 
 -- | Size of a century.
 centurySize :: Integer
@@ -45,16 +45,16 @@ dayOfWeek year realMonth day = calculatedDay `mod` weekSize
     yearOfCentury :: Integer
     yearOfCentury = year `mod` centurySize
     zeroBasedCentury :: Integer
-    zeroBasedCentury = floor ((fromIntegral year) / (fromIntegral centurySize))
+    zeroBasedCentury = floor (fromIntegral year / fromIntegral centurySize)
     mappedMonth :: Integer
-    mappedMonth = [13, 14, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]!!(fromIntegral month)
+    mappedMonth = [13, 14, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]!!fromIntegral month
     calculatedDay :: Integer
     calculatedDay =
       day +
       floor (fromIntegral (13 * (mappedMonth + 1)) / 5.00) +
       yearOfCentury +
-      floor ((fromIntegral yearOfCentury) / 4.00) +
-      floor ((fromIntegral zeroBasedCentury) / 4.00) +
+      floor (fromIntegral yearOfCentury / 4.00) +
+      floor (fromIntegral zeroBasedCentury / 4.00) +
       (5 * zeroBasedCentury)
 
 -- | Calculates the number of months starting with sundays in given time interval of years.
@@ -83,15 +83,15 @@ sundays1tr start end = sundays' start 1 0
       | y > end   = acc
       | otherwise = if dayOfWeek y m 1 == 1 then inc else pass
       where
-      nextY acc = sundays' (y + 1) 1 acc
-      nextM acc = sundays' y (m + 1) acc
+      nextY yacc = sundays' (y + 1) 1 yacc
+      nextM yacc = sundays' y (m + 1) yacc
       inc = if m < 12 then nextM (acc + 1) else nextY (acc + 1)
       pass = if m < 12 then nextM acc else nextY acc
 
 -- | Finds out if the given year has a leap day.
 leap :: Integer -- ^ Year.
      -> Bool -- ^ Truthy value if year has a leap day, otherwise false.
-leap year = isForth && not(isCenturyStart) || isForthCenturyStart
+leap year = isForth && not isCenturyStart || isForthCenturyStart
   where
     isForth :: Bool
     isForth = (year `mod` leapWidth) == 0
@@ -105,7 +105,7 @@ daysInMonth :: Integer -- ^ Month of the year.
             -> Integer -- ^ Year.
             -> Integer -- ^ Number of days.
 daysInMonth month year
-  | month == 2  = if leap(year) then 29 else 28
+  | month == 2  = if leap year then 29 else 28
   | month == 4 || 
     month == 6 || 
     month == 9 || 
@@ -129,6 +129,6 @@ sundays2 start end = sundays' start 1 2
         nextM :: Integer
         nextM = sundays' year (month + 1) nextWeekday
         nextWeekday :: Integer
-        nextWeekday = weekDay + ((daysInMonth month year) `mod` weekSize)
+        nextWeekday = weekDay + (daysInMonth month year `mod` weekSize)
         rest :: Integer
         rest  = if month < 12 then nextM else nextY

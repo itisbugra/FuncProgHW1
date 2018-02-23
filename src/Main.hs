@@ -85,7 +85,6 @@ sundays1tr start end = sundays' start 1 0
       where
       nextY acc = sundays' (y + 1) 1 acc
       nextM acc = sundays' y (m + 1) acc
-      ftor newAcc = if m < 12 then nextM newAcc else nextY newAcc
       inc = if m < 12 then nextM (acc + 1) else nextY (acc + 1)
       pass = if m < 12 then nextM acc else nextY acc
 

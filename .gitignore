@@ -1,2 +1,6 @@
+# Build artifacts
 .cabal-sandbox/
 dist/
+
+# macOS-specific
+.DS_Store

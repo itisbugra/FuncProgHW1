@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                zellerscongruence
-version:             0.1.0.0
+version:             0.1.0
 synopsis:            Zeller's congruence implementation.
 -- description:         
 license:             MIT

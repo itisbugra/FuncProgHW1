@@ -44,16 +44,16 @@ dayOfWeek year realMonth day = calculatedDay `mod` weekSize
     yearOfCentury :: Integer
     yearOfCentury = year `mod` centurySize
     zeroBasedCentury :: Integer
-    zeroBasedCentury = floor(fromIntegral(year) / fromIntegral(centurySize))
+    zeroBasedCentury = floor ((fromIntegral year) / (fromIntegral centurySize))
     mappedMonth :: Integer
-    mappedMonth = [13, 14, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]!!(fromIntegral(month))
+    mappedMonth = [13, 14, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]!!(fromIntegral month)
     calculatedDay :: Integer
     calculatedDay =
       day +
-      floor(fromIntegral(13 * (mappedMonth + 1)) / 5.00) +
+      floor (fromIntegral (13 * (mappedMonth + 1)) / 5.00) +
       yearOfCentury +
-      floor(fromIntegral(yearOfCentury) / 4.00) +
-      floor(fromIntegral(zeroBasedCentury) / 4.00) +
+      floor ((fromIntegral yearOfCentury) / 4.00) +
+      floor ((fromIntegral zeroBasedCentury) / 4.00) +
       (5 * zeroBasedCentury)
 
 -- | Calculates the number of months starting with sundays in given time interval of years.

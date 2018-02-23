@@ -97,3 +97,13 @@ leap year = isForth && not(isCenturyStart) || isForthCenturyStart
     isForthCenturyStart :: Bool
     isForthCenturyStart = (year `mod` (centurySize * leapWidth)) == 0
 
+daysInMonth :: Integer
+            -> Integer
+            -> Integer
+daysInMonth month year
+  | month == 2  = if leap(year) then 29 else 28
+  | month == 4 || 
+    month == 6 || 
+    month == 9 || 
+    month == 11 = 30
+  | otherwise   = 31

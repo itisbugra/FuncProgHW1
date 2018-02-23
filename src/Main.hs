@@ -22,6 +22,13 @@ main = putStrLn "Hello, Haskell!"
 centurySize :: Integer
 centurySize = 100
 
+-- | Width of a leap.
+leapWidth :: Integer
+leapWidth = 4
+
+-- | Size of a week in calendar.
+weekSize :: Integer
+weekSize = 7
 
 -- | Calculates day of a week on a Gregorian calendar by using *Zeller's congruence* method.
 dayOfWeek :: Integer -- ^ Day of the month, e.g. 21.

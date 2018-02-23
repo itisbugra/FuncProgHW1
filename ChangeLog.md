@@ -1,5 +1,5 @@
-# Revision history for ZellersCongruence
+# Revision history for zellerscongruence
 
-## 0.1.0.0  -- YYYY-mm-dd
+## 0.1.0
 
-* First version. Released on an unsuspecting world.
+* Release without unit tests, completely experimental.

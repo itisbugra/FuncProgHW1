@@ -85,6 +85,15 @@ sundays1tr start end = sundays' start 1 0
       ftor newAcc = if m < 12 then nextM newAcc else nextY newAcc
       inc = ftor (acc + 1); pass = ftor acc
 
-  calculatedDay :: Integer
-  calculatedDay = month + yearOfCentury + (realToFrac(zeroBasedCentury) / realToFrac(4.00))
+-- | Finds out if the given year has a leap day.
+leap :: Integer
+     -> Bool
+leap year = isForth && not(isCenturyStart) || isForthCenturyStart
+  where
+    isForth :: Bool
+    isForth = (year `mod` leapWidth) == 0
+    isCenturyStart :: Bool
+    isCenturyStart = (year `mod` centurySize) == 0
+    isForthCenturyStart :: Bool
+    isForthCenturyStart = (year `mod` (centurySize * leapWidth)) == 0
 

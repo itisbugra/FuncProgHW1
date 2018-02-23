@@ -31,14 +31,28 @@ weekSize :: Integer
 weekSize = 7
 
 -- | Calculates day of a week on a Gregorian calendar by using *Zeller's congruence* method.
-dayOfWeek :: Integer -- ^ Day of the month, e.g. 21.
+dayOfWeek :: Integer -- ^ Year.
           -> Integer -- ^ Month of the year.
-          -> Integer -- ^ Year.
+          -> Integer -- ^ Day of the month, e.g. 21.
           -> Integer -- ^ Calculated day of the week.
-dayOfWeek day month year = 
-    calculatedDay `mod` 7 where
-  yearOfCentury :: Integer
-  yearOfCentury = year `mod` centurySize
+dayOfWeek year realMonth day = calculatedDay `mod` weekSize
+  where
+    month :: Integer
+    month = realMonth - 1
+    yearOfCentury :: Integer
+    yearOfCentury = year `mod` centurySize
+    zeroBasedCentury :: Integer
+    zeroBasedCentury = floor(fromIntegral(year) / fromIntegral(centurySize))
+    mappedMonth :: Integer
+    mappedMonth = [13, 14, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]!!(fromIntegral(month))
+    calculatedDay :: Integer
+    calculatedDay =
+      day +
+      floor(fromIntegral(13 * (mappedMonth + 1)) / 5.00) +
+      yearOfCentury +
+      floor(fromIntegral(yearOfCentury) / 4.00) +
+      floor(fromIntegral(zeroBasedCentury) / 4.00) +
+      (5 * zeroBasedCentury)
 
   zeroBasedCentury :: Integer
   zeroBasedCentury = floor(fromInteger(year) / fromInteger(centurySize))

@@ -43,7 +43,7 @@ One of the centuries found in 400 years interval has **25** leap days since it i
 
 That makes **146.097** days, number of days in 400 years is a multiple of 7.
 
-Pick one day would be bounded to the same probability, all days are equally possible since this is a uniform distribution.
+Picking one day is bounded to the same probability, all days are equally possible since this is a uniform distribution.
 
 ## License
 

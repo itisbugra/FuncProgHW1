@@ -30,7 +30,7 @@ function dayOfWeek(day, month, year) {
 
 ## Running HLint
 
-1. Run `cabal install hlint`.
+1. Run `$ cabal install hlint`.
 2. Run `$ .cabal-sandbox/bin/hlint .` to execute the *HLint*.
 
 ## Answer for the math question

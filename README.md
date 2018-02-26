@@ -28,7 +28,12 @@ function dayOfWeek(day, month, year) {
 1. Run *cabal* build engine: `$ cabal install -j`.
 2. Run `$ .cabal-sandbox/bin/ZellersCongruence` to start the application.
 
-### Answer for the math question
+## Running HLint
+
+1. Run `cabal install hlint`.
+2. Run `$ .cabal-sandbox/bin/hlint .` to execute the *HLint*.
+
+## Answer for the math question
 
 Quoting from [Wikipedia.org](https://en.wikipedia.org/wiki/Leap_year):
 
